@@ -1,6 +1,6 @@
-# Laravel 6 管理員核准
+# Laravel 7 管理員核准
 
-以管理員核准模式，讓尚未核定的使用者登入顯示提示。Laravel 6 管理員核准主要是用的 [QuickAdminPanel](https://quickadminpanel.com) 生成的，除了一些定制代碼，可依需求彈性改造的工具。
+以管理員核准模式，讓尚未核定的使用者登入顯示提示。Laravel 7 管理員核准主要是用的 [QuickAdminPanel](https://quickadminpanel.com) 生成的，除了一些定制代碼，可依需求彈性改造的工具。
 
 ## 使用方式
 - 把整個專案複製一份到你的電腦裡，這裡指的「內容」不是只有檔案，而是指所有整個專案的歷史紀錄、分支、標籤等內容都會複製一份下來。
