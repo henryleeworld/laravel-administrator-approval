@@ -1,62 +1,72 @@
 @extends('layouts.app')
+
 @section('content')
-<div class="login-box">
-    <div class="login-logo">
-        <a href="#">
-            {{ trans('panel.site_title') }}
-        </a>
-    </div>
-    <div class="login-box-body">
-        <p class="login-box-msg">
-            {{ trans('global.login') }}
-        </p>
+    <div class="card-body login-card-body">
+        <p class="login-box-msg">{{ __('Login') }}</p>
         @if(session()->has('message'))
-            <p class="alert alert-info">
-                {{ session()->get('message') }}
-            </p>
+        <p class="alert alert-info">
+            {{ session()->get('message') }}
+        </p>
         @endif
-        <form method="POST" action="{{ route('login') }}">
-            {{ csrf_field() }}
-            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="email" name="email" class="form-control" required autofocus placeholder="{{ trans('global.login_email') }}" value="{{ old('email', null) }}">
-                @if($errors->has('email'))
-                    <p class="help-block">
-                        {{ $errors->first('email') }}
-                    </p>
-                @endif
-            </div>
-            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                <input type="password" name="password" class="form-control" required placeholder="{{ trans('global.login_password') }}">
-                @if($errors->has('password'))
-                    <p class="help-block">
-                        {{ $errors->first('password') }}
-                    </p>
-                @endif
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label><input type="checkbox" name="remember"> {{ trans('global.remember_me') }}</label>
+        <form action="{{ route('login') }}" method="post">
+            @csrf
+
+            <div class="input-group mb-3">
+                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="{{ __('Email') }}" required autofocus>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
                     </div>
                 </div>
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">
-                        {{ trans('global.login') }}
-                    </button>
+                @error('email')
+                <span class="error invalid-feedback">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
                 </div>
+                @error('password')
+                <span class="error invalid-feedback">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
+
+            <div class="row">
+                <div class="col-8">
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">
+                            {{ __('Remember Me') }}
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
+                </div>
+                <!-- /.col -->
             </div>
         </form>
-        <a href="{{ route('password.request') }}">
-            {{ trans('global.forgot_password') }}
-        </a>
-        <br><a href="{{ route('register') }}">{{ trans('global.register') }}</a>
 
+        @if (Route::has('password.request'))
+            <p class="mb-1">
+                <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+            </p>
+        @endif
     </div>
-</div>
+    <!-- /.login-card-body -->
 @endsection
 
 @section('scripts')
-<script>
+<script type="module">
     $(function () {
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',

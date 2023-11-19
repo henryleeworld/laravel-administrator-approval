@@ -1,56 +1,61 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    @can('user_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route("admin.users.create") }}">
-                    {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
-                </a>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">{{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}</h1>
+                @can('user_create')
+				<div style="margin-bottom: 10px;" class="row">
+                    <div class="col-lg-12">
+                        <a class="btn btn-success" href="{{ route("admin.users.create") }}">
+                            {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
+                        </a>
+                    </div>
+                </div>
+                @endcan
             </div>
         </div>
-    @endcan
-    <div class="row">
-        <div class="col-lg-12">
+    </div>
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class=" table table-bordered table-striped table-hover datatable datatable-User" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th width="10">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}
-                </div>
-                <div class="panel-body">
-
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-User">
-                            <thead>
-                                <tr>
-                                    <th width="10">
-
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.user.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.user.fields.name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.user.fields.email') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.user.fields.email_verified_at') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.user.fields.approved') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.user.fields.roles') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($users as $key => $user)
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.user.fields.id') }}
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.user.fields.name') }}
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.user.fields.email') }}
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.user.fields.email_verified_at') }}
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.user.fields.approved') }}
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.user.fields.roles') }}
+                                        </th>
+                                        <th>
+                                            &nbsp;
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($users as $key => $user)
                                     <tr data-entry-id="{{ $user->id }}">
                                         <td>
 
@@ -72,7 +77,7 @@
                                         </td>
                                         <td>
                                             @foreach($user->roles as $key => $item)
-                                                <span class="label label-info label-many">{{ $item->title }}</span>
+                                                <span class="badge badge-info">{{ $item->title }}</span>
                                             @endforeach
                                         </td>
                                         <td>
@@ -95,26 +100,22 @@
                                                     <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
                                                 </form>
                                             @endcan
-
                                         </td>
-
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 @endsection
 @section('scripts')
 @parent
-<script>
+<script type="module">
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('user_delete')

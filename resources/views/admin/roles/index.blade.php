@@ -1,47 +1,52 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    @can('role_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route("admin.roles.create") }}">
-                    {{ trans('global.add') }} {{ trans('cruds.role.title_singular') }}
-                </a>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">{{ trans('cruds.role.title_singular') }} {{ trans('global.list') }}</h1>
+                @can('role_create')
+				<div style="margin-bottom: 10px;" class="row">
+                    <div class="col-lg-12">
+                        <a class="btn btn-success" href="{{ route("admin.roles.create") }}">
+                            {{ trans('global.add') }} {{ trans('cruds.role.title_singular') }}
+                        </a>
+                    </div>
+                </div>
+                @endcan
             </div>
         </div>
-    @endcan
-    <div class="row">
-        <div class="col-lg-12">
+    </div>
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class=" table table-bordered table-striped table-hover datatable datatable-Role" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th width="10">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('cruds.role.title_singular') }} {{ trans('global.list') }}
-                </div>
-                <div class="panel-body">
-
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Role">
-                            <thead>
-                                <tr>
-                                    <th width="10">
-
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.role.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.role.fields.title') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.role.fields.permissions') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($roles as $key => $role)
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.role.fields.id') }}
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.role.fields.title') }}
+                                        </th>
+                                        <th>
+                                            {{ trans('cruds.role.fields.permissions') }}
+                                        </th>
+                                        <th>
+                                            &nbsp;
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($roles as $key => $role)
                                     <tr data-entry-id="{{ $role->id }}">
                                         <td>
 
@@ -54,7 +59,7 @@
                                         </td>
                                         <td>
                                             @foreach($role->permissions as $key => $item)
-                                                <span class="label label-info label-many">{{ $item->title }}</span>
+                                                <span class="badge badge-info">{{ $item->title }}</span>
                                             @endforeach
                                         </td>
                                         <td>
@@ -81,22 +86,20 @@
                                         </td>
 
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 @endsection
 @section('scripts')
 @parent
-<script>
+<script type="module">
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('role_delete')
